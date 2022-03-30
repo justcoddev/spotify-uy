@@ -1,0 +1,92 @@
+.card-player {
+  background-color: var(--color-2);
+  height: 5rem;
+  border-radius: var(--border-radius-1);
+  display: flex;
+  cursor: pointer;
+  transition: all ease var(--animation-1);
+  justify-content: space-between;
+}
+
+.card-player:hover {
+  background-color: #4d4d4d;
+}
+
+.card-player .cover {
+  width: 5rem;
+  height: 100%;
+  /* de 100 a 70 */
+  object-fit: cover;
+  border-top-left-radius: var(--border-radius-1);
+  border-bottom-left-radius: var(--border-radius-1);
+}
+
+.card-player .content-player {
+   font-size: 70%;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  padding: 0 0 0 0.75rem;
+}
+
+.card-player .buttons-player {
+
+  opacity: 0;
+  width: 6.5rem;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  transition: all ease var(--animation-1);
+}
+
+.card-player:hover .buttons-player {
+  opacity: 1;
+}
+
+.card-player .buttons-player .play-btn {
+  color: var(--color-4);
+  border: 0;
+  font-size: 1.15rem;
+  border-radius: 2rem;
+  background-color: var(--color-1);
+  width: 45px;
+  height: 45px;
+}
+
+.card-player.player-big {
+  position: relative;
+  flex-direction: column;
+  height: 12rem;
+  /* de 18 a 14 */
+  padding: 1rem;
+}
+
+.card-player.player-big .cover {
+  width: 100%;
+  height: 120px;
+  /* cambiado de 200 a 120 */
+  border-radius: var(--border-radius-1);
+}
+
+.card-player.player-big .content-player {
+  padding: 0.5rem 0;
+  font-size: 80%;
+  /* cree font-size  con 60% */
+  flex-direction: column;
+  align-self: flex-start;
+  align-items: flex-start;
+}
+
+.card-player.player-big .content-player .sub-title-track {
+  font-size: 60%;
+  /* de 80 a 40 */
+  opacity: 0.7;
+}
+
+.card-player.player-big .buttons-player {
+  position: absolute;
+  right: -1rem;
+  top: 11rem;
+}
