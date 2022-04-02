@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { TrackService } from '@modules/tracks/services/track.service';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
 
 @Component({
   selector: 'app-side-bar',
@@ -15,7 +15,7 @@ export class SideBarComponent implements OnInit {
 
   customOptions: Array<any> = [];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private trackService: TrackService) {}
 
   ngOnInit(): void {
     this.mainMenu.defaultOptions = [
@@ -66,8 +66,16 @@ export class SideBarComponent implements OnInit {
         router: ['/'],
       },
     ];
-   
+
+    this.trackService.datatracksRandom$.subscribe((Response: any) => {
+      console.log('------>',Response);
+      this.customOptions.push({
+        name: Response[0].name,
+        router: [],
+      });
+    });
   }
+
   goTo($event: any): void {
     this.router.navigate(['/', 'favorites'], {
       queryParams: {
