@@ -1,7 +1,7 @@
 import { TrackModel } from '@core/models/tracks.model';
 import { environment } from './../../../../environments/environment';
-import {  Observable, of } from 'rxjs';
-import { map, mergeMap,tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { map, mergeMap, tap, catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -43,13 +43,18 @@ export class TrackService {
   getAllRandom$(): Observable<any> {
     // TODO: uso de pipe para filtar
     return this.http.get(`${this.URL}/tracks`).pipe(
-        // tap(data => console.log('-->❌📛', data)),
+      tap(data => console.log('-->❌📛', data)),
       mergeMap(({ data }: any) => this.skipById(data, 2)),
-
+      tap((data) => console.log('-->📛📛', data)),
+      catchError((err) => {
+        const {status, statusText}= err;
+        console.log('Algo paso revisame 💥💥💥',[status, statusText])
+        return of([]);
+      })
       // map((dataRevertida)=> { //aplica filtro comun de array
       //   return dataRevertida.filter((track:TrackModel)=> track._id !==1)
       // })
-      // tap(data => console.log('-->📛📛', data))
+      //
     );
   }
 }
