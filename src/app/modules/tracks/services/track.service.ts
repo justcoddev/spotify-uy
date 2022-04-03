@@ -1,31 +1,55 @@
-import { Observable, of, observable } from 'rxjs';
-import { Injectable } from '@angular/core';
 import { TrackModel } from '@core/models/tracks.model';
-import * as dataRaw from '../../../data/tracks.json';
+import { environment } from './../../../../environments/environment';
+import {  Observable, of } from 'rxjs';
+import { map, mergeMap,tap } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TrackService {
+  private readonly URL = environment.api;
 
-  datatracksTrending$:Observable<TrackModel[]> = of([])
-  datatracksRandom$:Observable<any> = of([])
+  constructor(private http: HttpClient) {}
+  /**
+   *
+   * @returns Devuelve todas las canciones !! 💥💥
+   */
+  private skipById(
+    listTracks: TrackModel[],
+    id: number
+  ): Promise<TrackModel[]> {
+    return new Promise((resolve, rejects) => {
+      const listTmp = listTracks.filter((a) => a._id !== id);
+      resolve(listTmp);
+    });
+  }
 
-  constructor() {
-    const {data}: any  = (dataRaw as any).default;
-    this.datatracksTrending$ = of(data)
+  /**
+   * // TODO: {data:[..1,..2,..3]}
+   */
+  getAllTracks$(): Observable<any> {
+    return this.http.get(`${this.URL}/tracks`).pipe(
+      map(({ data }: any) => {
+        return data;
+      })
+    );
+  }
+  /**
+   *
+   * @returns Devolver canciones random
+   */
+  getAllRandom$(): Observable<any> {
+    // TODO: uso de pipe para filtar
+    return this.http.get(`${this.URL}/tracks`).pipe(
+        // tap(data => console.log('-->❌📛', data)),
+      mergeMap(({ data }: any) => this.skipById(data, 2)),
 
-    this.datatracksRandom$ =new Observable((observer)=>{
-      const trackExample: TrackModel = {
-        _id: 9,
-        name: 'Leve',
-        album: 'Cartel de Santa',
-        url:'https://',
-        cover: 'https://www.whosampled.com/static/track_images_200/lr179341_20161118_23200534156.jpg',
-      };
-      setTimeout(()=>{
-        observer.next([trackExample]);
-      },3500)
-    })
+      // map((dataRevertida)=> { //aplica filtro comun de array
+      //   return dataRevertida.filter((track:TrackModel)=> track._id !==1)
+      // })
+      // tap(data => console.log('-->📛📛', data))
+    );
   }
 }
