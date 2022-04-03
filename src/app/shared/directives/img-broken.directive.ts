@@ -10,6 +10,6 @@ export class ImgBrokenDirective {
   elNative.src = '../../../assets/images/spot.jpg'
 }
   constructor(private elHost: ElementRef) {
-    console.log(elHost)
+    // console.log(elHost)
   }
 }
