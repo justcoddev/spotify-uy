@@ -1,5 +1,4 @@
 import { CookieService } from 'ngx-cookie-service';
-import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { environment } from './../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';

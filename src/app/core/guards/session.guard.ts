@@ -34,8 +34,6 @@ export class SessionGuard implements CanActivate {
         this.router.navigate(['/', 'auth']);
       }
       return token;
-
-      return token;
     } catch (error) {
       console.log('Algo sucedio??🛑', error);
       return true;
