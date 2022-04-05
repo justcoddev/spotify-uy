@@ -1,4 +1,4 @@
-import { Observable, Observer } from 'rxjs';
+import { BehaviorSubject, Observable, Observer, Subject } from 'rxjs';
 import { EventEmitter, Injectable } from '@angular/core';
 
 @Injectable({
@@ -7,21 +7,27 @@ import { EventEmitter, Injectable } from '@angular/core';
 export class MultimediaService {
   callback: EventEmitter<any> = new EventEmitter<any>();
 
-  myObservable1$: Observable<any> = new Observable();
-  constructor() {
-    this.myObservable1$ = new Observable((observer: Observer<any>) => {
-      observer.next('💦');
+  myObservable1$: BehaviorSubject<any> = new BehaviorSubject('💦');
 
-      setTimeout(() => {
-        observer.complete();
-      }, 1000);
-      setTimeout(() => {
-        observer.next('💦');
-      }, 2500);
-      setTimeout(() => {
-        observer.error('💦');
-      }, 3500);
-    });
+  constructor() {
+    setTimeout(() => {
+      this.myObservable1$.next('💦');
+    }, 1000);
+    setTimeout(() => {
+      this.myObservable1$.error('💥');
+    }, 3500);
+    // this.myObservable1$ = new Observable((observer: Observer<any>) => {
+    //   observer.next('💦');
+    //   setTimeout(() => {
+    //     observer.complete();
+    //   }, 1000);
+    //   setTimeout(() => {
+    //     observer.next('💦');
+    //   }, 2500);
+    //   setTimeout(() => {
+    //     observer.error('💦');
+    //   }, 3500);
+    // });
   }
 
   private listenAllEventes(): void {}
