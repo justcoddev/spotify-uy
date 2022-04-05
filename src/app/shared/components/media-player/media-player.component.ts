@@ -9,33 +9,25 @@ import { Subscription } from 'rxjs';  // TODO: programacion reactiva
   styleUrls: ['./media-player.component.css'],
 })
 export class MediaPlayerComponent implements OnInit, OnDestroy {
-  mockCover: TrackModel = {
-    cover:
-      'https://img1.freepng.es/20180329/jue/kisspng-angularjs-dart-front-and-back-ends-npm-escalator-5abda7d6ba62f5.4348649815223787107634.jpg',
-    album: 'Gioli & Assia',
-    name: 'BEBE (Oficial)',
-    url: 'http://localhost/track.mp3',
-    _id: 1,
-  };
 
   listObservers$: Array<Subscription> = [];
 
-  constructor(private multimediaService: MultimediaService) {}
+  constructor(public multimediaService: MultimediaService) {}
 
   ngOnInit(): void {
 
 
-    const observable1$ = this.multimediaService.myObservable1$
-    .subscribe(
-      (responseOk)=>{
-        // TODO: next()
-        console.log('El agua va perfecta!',responseOk)
-      },
-      (responseFail)=>{
-        // TODO: error()
-        console.log('Se tapo la tuberia',responseFail)
-      },
-    )
+    // const observable1$ = this.multimediaService.myObservable1$
+    // .subscribe(
+    //   (responseOk)=>{
+    //     // TODO: next()
+    //     console.log('El agua va perfecta!',responseOk)
+    //   },
+    //   (responseFail)=>{
+    //     // TODO: error()
+    //     console.log('Se tapo la tuberia',responseFail)
+    //   },
+    // )
   }
   ngOnDestroy(): void {
     this.listObservers$.forEach(u => u.unsubscribe());

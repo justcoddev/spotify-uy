@@ -43,12 +43,12 @@ export class TrackService {
   getAllRandom$(): Observable<any> {
     // TODO: uso de pipe para filtar
     return this.http.get(`${this.URL}/tracks`).pipe(
-      tap(data => console.log('-->❌📛', data)),
+      // tap((data) => console.log('-->❌📛', data)),
       mergeMap(({ data }: any) => this.skipById(data, 2)),
-      tap((data) => console.log('-->📛📛', data)),
+      // tap((data) => console.log('-->📛📛', data)),
       catchError((err) => {
-        const {status, statusText}= err;
-        console.log('Algo paso revisame 💥💥💥',[status, statusText])
+        const { status, statusText } = err;
+        // console.log('Algo paso revisame 💥💥💥', [status, statusText]);
         return of([]);
       })
       // map((dataRevertida)=> { //aplica filtro comun de array

@@ -1,3 +1,4 @@
+import { TrackModel } from './../../core/models/tracks.model';
 import { BehaviorSubject, Observable, Observer, Subject } from 'rxjs';
 import { EventEmitter, Injectable } from '@angular/core';
 
@@ -7,28 +8,25 @@ import { EventEmitter, Injectable } from '@angular/core';
 export class MultimediaService {
   callback: EventEmitter<any> = new EventEmitter<any>();
 
-  myObservable1$: BehaviorSubject<any> = new BehaviorSubject('💦');
+
+  public trackInfo$: BehaviorSubject<any> = new BehaviorSubject(undefined);
+  public audio!: HTMLAudioElement;
 
   constructor() {
-    setTimeout(() => {
-      this.myObservable1$.next('💦');
-    }, 1000);
-    setTimeout(() => {
-      this.myObservable1$.error('💥');
-    }, 3500);
-    // this.myObservable1$ = new Observable((observer: Observer<any>) => {
-    //   observer.next('💦');
-    //   setTimeout(() => {
-    //     observer.complete();
-    //   }, 1000);
-    //   setTimeout(() => {
-    //     observer.next('💦');
-    //   }, 2500);
-    //   setTimeout(() => {
-    //     observer.error('💦');
-    //   }, 3500);
-    // });
+     this.audio = new Audio();
+
+     this.trackInfo$.subscribe((responseOK) => {
+       if (responseOK) {
+         this.setAudio(responseOK);
+       }
+     });
   }
 
   private listenAllEventes(): void {}
+
+  public setAudio(track: TrackModel): void {
+    console.log('🐱‍🏍🐱‍🏍🐱‍🏍🐱‍🏍🐱‍🏍', track);
+    this.audio.src = track.url;
+    this.audio.play();
+  }
 }
