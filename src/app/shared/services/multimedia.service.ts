@@ -82,6 +82,7 @@ export class MultimediaService {
         break;
     }
   };
+  
   private setPercentage(currentTime: number, duration: number): void {
     //TODO duration ---> 100%
     //TODO currentTime ---> (x)
@@ -100,5 +101,9 @@ export class MultimediaService {
   public togglePlayer(): void {
     this.audio.paused ? this.audio.play() : this.audio.pause();
   }
-
+  public seekAudio(percentage: number): void {
+    const { duration } = this.audio;
+    const percentageToSecond = (percentage * duration) / 100;
+    this.audio.currentTime = percentageToSecond;
+  }
 }
