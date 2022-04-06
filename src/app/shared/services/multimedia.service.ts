@@ -15,7 +15,7 @@ export class MultimediaService {
     '-00:00'
   );
   public playerStatus$: BehaviorSubject<string> = new BehaviorSubject('paused');
-
+  public playerPercentage$: BehaviorSubject<number> = new BehaviorSubject(0);
   constructor() {
     this.audio = new Audio();
 
@@ -36,12 +36,10 @@ export class MultimediaService {
   }
 
   private calculateTime = () => {
-    console.log('disparando el evento');
     const { duration, currentTime } = this.audio;
-    console.table([duration, currentTime]);
     this.setTimeElapsed(currentTime);
     this.setRemaining(currentTime, duration);
-    //  this.setPercentage(currentTime, duration);
+    this.setPercentage(currentTime, duration);
   };
 
   private setTimeElapsed(currentTime: number): void {
@@ -84,10 +82,14 @@ export class MultimediaService {
         break;
     }
   };
-
+  private setPercentage(currentTime: number, duration: number): void {
+    //TODO duration ---> 100%
+    //TODO currentTime ---> (x)
+    //TODO (currentTime * 100) / duration
+    let percentage = (currentTime * 100) / duration;
+    this.playerPercentage$.next(percentage);
+  }
   //TODO: Funciones publicas
-
-
 
   public setAudio(track: TrackModel): void {
     console.log('🐱‍🏍🐱‍🏍🐱‍🏍🐱‍🏍🐱‍🏍', track);
@@ -95,7 +97,8 @@ export class MultimediaService {
     this.audio.play();
   }
 
-   public togglePlayer(): void {
-    (this.audio.paused) ? this.audio.play() : this.audio.pause()
+  public togglePlayer(): void {
+    this.audio.paused ? this.audio.play() : this.audio.pause();
   }
+
 }
