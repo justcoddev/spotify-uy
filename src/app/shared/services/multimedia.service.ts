@@ -82,7 +82,7 @@ export class MultimediaService {
         break;
     }
   };
-  
+
   private setPercentage(currentTime: number, duration: number): void {
     //TODO duration ---> 100%
     //TODO currentTime ---> (x)
@@ -93,7 +93,7 @@ export class MultimediaService {
   //TODO: Funciones publicas
 
   public setAudio(track: TrackModel): void {
-    console.log('🐱‍🏍🐱‍🏍🐱‍🏍🐱‍🏍🐱‍🏍', track);
+    // console.log('🐱‍🏍🐱‍🏍🐱‍🏍🐱‍🏍🐱‍🏍', track);
     this.audio.src = track.url;
     this.audio.play();
   }

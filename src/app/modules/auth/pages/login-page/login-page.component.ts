@@ -10,10 +10,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./login-page.component.css'],
 })
 export class LoginPageComponent implements OnInit {
-  erroSession:boolean=false
+  erroSession: boolean = false;
   formLogin: FormGroup = new FormGroup({});
 
-  constructor(private authService: AuthService, private cookie: CookieService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private cookie: CookieService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.formLogin = new FormGroup({
@@ -33,14 +37,13 @@ export class LoginPageComponent implements OnInit {
       (ResponseOk) => {
         // TODO: cuando las credenciales son correctas
         console.log('Session iniciada correcta', ResponseOk);
-        const{tokenSession, data}= ResponseOk
-        this.cookie.set('token',tokenSession, 4, '/')
-        this.router.navigate(['/','tracks'])
-
+        const { tokenSession, data } = ResponseOk;
+        this.cookie.set('token', tokenSession, 4, '/');
+        this.router.navigate(['/', 'tracks']);
       },
       (err) => {
         // TODO: ERROR 400>=
-        this.erroSession = true
+        this.erroSession = true;
         console.log('Ocirrio error con tu email o password');
       }
     );
