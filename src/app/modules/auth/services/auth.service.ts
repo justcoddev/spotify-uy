@@ -10,7 +10,7 @@ import { Injectable } from '@angular/core';
 export class AuthService {
   private readonly URL = environment.api;
 
-  constructor(private http: HttpClient, private cookie: CookieService) {}
+  constructor(private http: HttpClient) {}
 
   sendCredentials(email: string, password: string): Observable<any> {
     const body = {
@@ -23,5 +23,8 @@ export class AuthService {
     // const { tokenSession, data } = responseOk;
     // this.cookie.set('token_servicio', tokenSession, 4, '/');
     // }))
+  }
+  suma(a: number, b: number): number {
+    return a + b;
   }
 }
